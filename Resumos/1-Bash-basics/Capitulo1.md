@@ -142,3 +142,23 @@ You can also run a bash script with the following syntax:
 `$ bash helloworld.sh`
 
 Because we specified the bash command, the script will run using the bash interpreter and won’t require a shebang line. Also, if you use the bash command, the script doesn’t have to be set with an executable permission (+x). In later chapters, you’ll learn about the permission model in more depth and explore its importance in the context of finding misconfigurations in penetration tests.
+
+### Debugging
+
+Errors will inevitably occur when you’re developing bash scripts. Luckily, debugging scripts is quite intuitive. An easy way to check for errors early is by using the -n parameter when running a script:
+
+`$ bash -n script.sh`
+
+his parameter will read the commands in the script but won’t execute them, so any syntax errors that exist will be shown onscreen. You can think of -n as a dry-run method to test the validity of your syntax.
+You can also use the -x parameter to turn on verbose mode, which lets you see commands being executed and will help you debug issues as the script executes in real time:
+
+`bash -x script.sh`
+
+If you want to start debugging at a given point in the script, include the set command in the script itself:
+
+```apache
+#!/bin/bash
+set -x
+--snip--
+set +x
+```
