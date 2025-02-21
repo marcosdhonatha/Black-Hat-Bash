@@ -126,3 +126,19 @@ Scripts can be as short as two lines: the shebang line and a Linux command. Let�
 #!/bin/bash
 echo "Hello World!"
 ```
+
+### Execution
+
+To run the script, save the file as helloworld.sh, open the terminal, and navigate to the directory where the script resides. If you saved the file in your home directory, you should run the set of commands shown in:
+
+```apache
+$ cd ~
+$ chmod u+x helloworld.sh
+$ ./helloworld.sh
+```
+
+You can also run a bash script with the following syntax:
+
+`$ bash helloworld.sh`
+
+Because we specified the bash command, the script will run using the bash interpreter and won’t require a shebang line. Also, if you use the bash command, the script doesn’t have to be set with an executable permission (+x). In later chapters, you’ll learn about the permission model in more depth and explore its importance in the context of finding misconfigurations in penetration tests.
