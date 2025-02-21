@@ -167,7 +167,7 @@ set +x
 
 The most basic bash scripts are just lists of Linux commands collected in a single file. For example, you could write a script that creates resources on a system and then prints information about these resources to the screen:
 
-```
+```apache
 #!/bin/bash
 # All this script does is create a directory, create a file
 # within the directory, and then list the contents of the directory.
@@ -187,4 +187,4 @@ variables are untyped; theyâ€™re all considered character strings. Even so, youâ
 * They can include alphanumeric characters.
 * They cannot start with a number.
 * They can contain an underscore (_).
-*  They cannot contain whitespace.
+* They cannot contain whitespace.
