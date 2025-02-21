@@ -86,7 +86,6 @@ Here are some of the default environment variables available:
 * `#!/bin/bash -x` : This option prints all commands and their arguments as they are executed to the terminal. It is useful for debugging scripts as you’re developing them.
 * `#!/bin/bash -r` : This option creates a restricted bash shell, which restricts certain potentially dangerous commands that could, for example, navigate to certain directories, change sensitive environment variables, or attempt to turn off the restricted shell from within the script.
 
-
 Specifying an argument within the shebang line requires modifying the script, but you can also pass arguments to the bash interpreter by using this syntax:
 
 * `bash -r myscript.sh`
@@ -98,7 +97,6 @@ Whether you pass arguments to the bash interpreter on the command line or on the
 ### Comments:
 
 > Comments are parts of a script that the bash interpreter won’t treat as code and that can improve the readability of a program. Imagine that you write a long script and, a few years later, need to modify some of its logic. If you didn’t write comments to explain what you did, you might find it quite challenging to remember the purpose of each section.
-
 
 Comments in bash start with a hash mark (**#**), as shown in:
 
@@ -119,3 +117,12 @@ hash mark, as shown in:
 > In addition to documenting a script’s logic, comments can provide metadata to indicate the author, the script’s version, the person to contact for issues, and more. These comments usually appear at the top part of the script, below the shebang line.
 
 ---
+
+### Commands
+
+Scripts can be as short as two lines: the shebang line and a Linux command. Let’s write a simple script that prints Hello World! to the terminal. Open your text editor and enter the following:
+
+```
+#!/bin/bash
+echo "Hello World!"
+```
