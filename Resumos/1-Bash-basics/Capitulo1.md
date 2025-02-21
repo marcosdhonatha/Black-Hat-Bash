@@ -162,3 +162,18 @@ set -x
 --snip--
 set +x
 ```
+
+### Basic Syntax
+
+The most basic bash scripts are just lists of Linux commands collected in a single file. For example, you could write a script that creates resources on a system and then prints information about these resources to the screen:
+
+```
+#!/bin/bash
+# All this script does is create a directory, create a file
+# within the directory, and then list the contents of the directory.
+mkdir mydirectory
+touch mydirectory/myfile
+ls -l mydirectory
+```
+
+In this example, we use mkdir to create a directory named mydirectory. Next, we use the touch command to create a file named myfile within the directory. Finally, we run the ls -l command to list the contents of mydirectory.
