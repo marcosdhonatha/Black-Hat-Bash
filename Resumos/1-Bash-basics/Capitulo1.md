@@ -179,3 +179,12 @@ ls -l mydirectory
 In this example, we use mkdir to create a directory named mydirectory. Next, we use the touch command to create a file named myfile within the directory. Finally, we run the ls -l command to list the contents of mydirectory.
 
 ### Variables
+
+In bash,
+variables are untyped; they’re all considered character strings. Even so, you’ll see that bash allows you to create arrays, access array elements, or perform arithmetic operations so long as the variable value consists of only numbers.
+
+* The following rules govern the naming of bash variables:
+* They can include alphanumeric characters.
+* They cannot start with a number.
+* They can contain an underscore (_).
+*  They cannot contain whitespace.
