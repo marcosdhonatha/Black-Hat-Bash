@@ -177,3 +177,5 @@ ls -l mydirectory
 ```
 
 In this example, we use mkdir to create a directory named mydirectory. Next, we use the touch command to create a file named myfile within the directory. Finally, we run the ls -l command to list the contents of mydirectory.
+
+### Variables
