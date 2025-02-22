@@ -183,8 +183,53 @@ In this example, we use mkdir to create a directory named mydirectory. Next, we 
 In bash,
 variables are untyped; they’re all considered character strings. Even so, you’ll see that bash allows you to create arrays, access array elements, or perform arithmetic operations so long as the variable value consists of only numbers.
 
-* The following rules govern the naming of bash variables:
+The following rules govern the naming of bash variables:
+
 * They can include alphanumeric characters.
 * They cannot start with a number.
 * They can contain an underscore (_).
 * They cannot contain whitespace.
+
+### Assigning and Accessing Variables
+
+Let’s assign a variable. Open a terminal and enter the following directly within the command prompt:
+
+`book="black hat bash"`
+
+```
+$ echo "This book's name is echo"Thisbook′snameis${book}"
+This book's name is black hat bash
+```
+
+You can also expand a variable by using just the dollar sign ($) followed by the variable:
+
+`echo "This book's name is $book"`
+
+Using the ${} syntax makes the code less prone to misinterpretation and helps readers understand when a variable starts and ends.
+
+You can also assign the output of a command to a variable by using the command substitution syntax $(), placing the desired command within the parentheses. You’ll use this syntax often in bash programming.
+
+Try running the commands:
+
+```
+$ root_directory=$(ls -ld /)
+$ echo "${root_directory}"
+```
+
+Note that you shouldn’t leave whitespace around the assignment symbol (=) when creating a variable:
+
+`book = "this is an invalid variable assignment"`
+
+**The previous variable assignment syntax is considered invalid.**
+
+#### Unassigning Variables
+
+You can unassign assigned variables by using the unset command, as shown in:
+
+```
+$ book="Black Hat Bash"
+$ unset book
+$ echo "echo"${book}"
+```
+
+If you execute these commands in the terminal, no output will be shown after the echo command executes.
