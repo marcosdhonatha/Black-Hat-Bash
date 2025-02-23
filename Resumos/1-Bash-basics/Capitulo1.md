@@ -304,3 +304,14 @@ You can even swap one of the values with another value. This code will replace 1
 `IP_ADDRESSES[0]="192.168.1.10"`
 
 You’ll find arrays particularly useful when you need to iterate over values and perform actions against them, such as a list of IP addresses to scan (or a list of email addresses to send a phishing email to).
+
+#### Streams
+
+Streams are files that act as communication channels between a program and its environment. When you interact with a program (whether a built-in Linux utility such as ls or mkdir or one that you wrote yourself), you’re interacting with one or more streams. Bash has three standard data streams, as shown in: 
+
+
+| Stream name              | Description                         | File descriptor number |
+| ------------------------ | ----------------------------------- | ---------------------- |
+| Standard input (stdin)   | Data coming into a program as input | 0                      |
+| Standard output (stdout) | Data coming out of a program        | 1<br /><br /><br>      |
+| Standard error (stderr)  | Errors coming out of a program      | 2                      |
