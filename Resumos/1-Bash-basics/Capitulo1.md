@@ -277,3 +277,30 @@ $ echo ${result}
 ```
 
 The expr command evaluates expressions, which don’t have to be arithmetic operations; for example, you might use it to calculate the length of a string. Use man expr to learn more about the capabilities of expr.
+
+#### Arrays
+
+Bash allows you to create single-dimension arrays. An array is a collection of elements that are indexed. You can access these elements by using their index numbers, which begin at zero. In bash scripts, you might use arrays whenever you need to iterate over multiple strings and run the same commands on each one.
+
+```
+#!/bin/bash
+# Sets an array
+IP_ADDRESSES=(192.168.1.1 192.168.1.2 192.168.1.3)
+# Prints all elements in the array
+echo "${IP_ADDRESSES[*]}"
+# Prints only the first element in the array
+echo "${IP_ADDRESSES[0]}"
+```
+
+You can also delete elements from an array. Listing 1-17 will delete 192.168.1.2 from the array.
+
+```
+IP_ADDRESSES=(192.168.1.1 192.168.1.2 192.168.1.3)
+unset IP_ADDRESSES[1]
+```
+
+You can even swap one of the values with another value. This code will replace 192.168.1.1 with 192.168.1.10:
+
+`IP_ADDRESSES[0]="192.168.1.10"`
+
+You’ll find arrays particularly useful when you need to iterate over values and perform actions against them, such as a list of IP addresses to scan (or a list of email addresses to send a phishing email to).
