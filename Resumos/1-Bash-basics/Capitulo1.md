@@ -233,3 +233,20 @@ $ echo "echo"${book}"
 ```
 
 If you execute these commands in the terminal, no output will be shown after the echo command executes.
+
+#### Scoping Variables
+
+Global variables are those available to the entire program. But variables in bash can also be scoped so that they are accessible only from within a certain block of code. These local variables are declared using the `local `keyword:
+
+```
+#!/bin/bash
+PUBLISHER="No Starch Press"
+print_name(){
+local name
+name="Black Hat Bash"
+echo "${name} by ${PUBLISHER}"
+}
+print_name
+```
+
+The echo command at the end of the script file will result in an empty variable, as the name  variable is locally scoped to the print\_name() function, which means that nothing outside the function can access it. So, it will simply return without a value.
