@@ -433,3 +433,80 @@ lrwxrwxrwx 1 root root 8 Mar 10 08:43 sbin -> usr/sbin
 ```
 
 We use ls to print the content of the root directory into the standard output stream, then use a pipe to send it as input to the grep command, which filters out any lines containing the word bin.
+
+#### Positional Arguments
+
+Bash scripts can take positional arguments (also called parameters) passed on the command line. Arguments are especially useful, for example, when you want to develop a program that modifies its behavior based on input passed to it by another program or user. Arguments can also change features of the script such as the output format and how verbose it will be during runtime. For example, imagine you develop an exploit and send it to a few colleagues, each of whom will use it against a different IP address. Instead of writing a script and asking the user to modify it with their network information, you can write it to take an IP address argument and then act against this input to avoid having to modify the source code in each case.
+
+A bash script can access arguments passed to it on the command line by using the variables \$1, \$2, and so on. The number represents the order in which the argument was entered:
+
+```
+#!/bin/bash
+# This script will ping any address provided as an argument.
+SCRIPT_NAME="${0}"
+TARGET="${1}"
+echo "Running the script ${SCRIPT_NAME}..."
+echo "Pinging the target: ${TARGET}..."
+ping "${TARGET}"
+```
+
+This script assigns the first positional argument to the variable TARGET. Notice, also, that the argument \${0} is assigned to the SCRIPT\_NAME variable. This argument contains the script's name.
+
+```
+$ chmod u+x ping_with_arguments.sh
+$ ./ping_with_arguments.sh nostarch.com
+```
+
+What if you want to access all arguments? You can do so using the variable \$@. Also, using \$#, you can get the total number of arguments passed:
+
+```
+#!/bin/bash
+echo "The arguments are: $@"
+echo "The total number of arguments is: $#"
+```
+
+Save this script to a file named show\_args.sh and run it as follows:
+
+```
+$ chmod u+x show_args.sh
+$ ./show_args.sh "hello" "world"
+The arguments are: hello world
+The total number of arguments is: 2
+```
+
+Special Variables Related to Positional Arguments:
+
+
+| Variable          | Description                                                          |
+| ----------------- | -------------------------------------------------------------------- |
+| $0                | The name of the script file                                          |
+| \$1, \$2, \$3 ... | Positional arguments                                                 |
+| $#                | The number of passed positional arguments                            |
+| $*                | All positional arguments                                             |
+| $@                | All positional arguments, where each argument is individually quoted |
+
+When a script uses "\$\*" with the quotes included, bash will expand arguments into a single word. For instance, the following example groups the arguments into one word:
+
+```
+$ ./script.sh "1" "2" "3"
+1 2 3
+```
+
+When a script uses "\$@" (again including the quotes), it will expand arguments into separate words:
+
+```
+$ ./script.sh "1" "2" "3"
+1
+2
+3
+```
+
+In most cases, you will want to use "\$@" so that every argument is treated as an individual word. The following script demonstrates how to use these special variables in a for loop:
+
+```
+#!/bin/bash
+# Change "$@" to "$*" to observe behavior.
+for args in "$@"; do
+ echo "${args}"
+done
+```
