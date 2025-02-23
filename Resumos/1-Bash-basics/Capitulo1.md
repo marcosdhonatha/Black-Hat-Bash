@@ -307,11 +307,59 @@ You’ll find arrays particularly useful when you need to iterate over values an
 
 #### Streams
 
-Streams are files that act as communication channels between a program and its environment. When you interact with a program (whether a built-in Linux utility such as ls or mkdir or one that you wrote yourself), you’re interacting with one or more streams. Bash has three standard data streams, as shown in: 
+Streams are files that act as communication channels between a program and its environment. When you interact with a program (whether a built-in Linux utility such as ls or mkdir or one that you wrote yourself), you’re interacting with one or more streams. Bash has three standard data streams, as shown in:
 
 
 | Stream name              | Description                         | File descriptor number |
 | ------------------------ | ----------------------------------- | ---------------------- |
 | Standard input (stdin)   | Data coming into a program as input | 0                      |
-| Standard output (stdout) | Data coming out of a program        | 1<br /><br /><br>      |
+| Standard output (stdout) | Data coming out of a program        | 1                      |
 | Standard error (stderr)  | Errors coming out of a program      | 2                      |
+
+#### Control Operators
+
+Control operators in bash are tokens that perform a control function:
+
+
+| Operator | Description                                                                                                                                                        |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| &        | Sends a command to the backgroundd                                                                                                                                 |
+| &&       | Used as a logical AND. The second command in the expression will be evaluated only if the first command evaluates to true.d                                        |
+| (and)    | Used for command grouping.                                                                                                                                         |
+| ;        | Used as a list terminator. A command following the terminator will run after the preceding command has finished, regardless of whether it evaluates to true or not |
+| ;;       | Ends a case statement.                                                                                                                                             |
+| \|       | Redirects the output of a command as input to another command.                                                                                                     |
+| \|       | Used as a logical OR. The second command will run if the first one evaluates to false.                                                                             |
+
+Let’s see some of these control operators in action. The & operator sends a command to the background. If you have a list of commands to run, as in Listing 1-18, sending the first command to the background will allow bash to continue to the next line even if the previous command hasn’t finished its work.
+
+```
+#!/bin/bash
+# This script will send the sleep command to the background.
+echo "Sleeping for 10 seconds..."
+1 sleep 10 &
+# Creates a file
+echo "Creating the file test123"
+touch test123
+# Deletes a file
+echo "Deleting the file test123"
+rm test123
+```
+
+Commands that are long-running are often sent to the background to prevent scripts from hanging. You’ll learn about sending commands to the background in more depth when we discuss job control in Chapter 2. The && operator allows us to perform an AND operation between two commands. In the following example, the file test123 will be created only if the first command is successful:
+
+`touch test && touch test123`
+
+The () operator allows us to group commands so they act a single unit when we need to redirect them together:
+
+`(ls; ps)`
+
+This is generally useful when you need to redirect results from multiple commands to a stream, as shown in “Redirection Operators,” next. The ; operator allows us to run multiple commands regardless of their exit status:
+
+`ls; ps; whoami`
+
+As a result, each command is executed one after the other, as soon as the previous one finishes. The || operator allows us to chain commands together using an OR operation:
+
+`lzl || echo "the lzl command failed"`
+
+In this example, the echo command will be executed only if the first command fails.
