@@ -363,3 +363,73 @@ As a result, each command is executed one after the other, as soon as the previo
 `lzl || echo "the lzl command failed"`
 
 In this example, the echo command will be executed only if the first command fails.
+
+#### Redirection Operators
+
+
+| Operator | Description                                                                     |
+| -------- | ------------------------------------------------------------------------------- |
+| >        | Redirects stdout to a file                                                      |
+| >>       | Redirects stdout to a file by appending it to the existing content              |
+| &> or >& | Redirects stdout and stderr to a file                                           |
+| &>>      | Redirects stdout and stderr to a file by appending them to the existing content |
+| <        | Redirects input to a command                                                    |
+| <<       | Called a here document, or heredoc, redirects multiple input lines to a command |
+| \|       | Redirects output of a command as input to another command                       |
+
+The > operator redirects the standard output stream to a file. Any command that precedes this character will send its output to the specified location. Run the following command directly in your terminal:
+
+`$ echo "Hello World!" > output.txt`
+
+```
+$ cat output.txt
+Hello World!
+```
+
+Next, we’ll use the >> operator to append some content to the end of the same file:
+
+```
+$ echo "Goodbye!" >> output.txt
+$ cat output.txt
+Hello World!
+Goodbye!
+```
+
+If we had used > instead of >>, the content of output.txt would have been overwritten completely with the Goodbye! text.
+
+You can redirect both the standard output stream and the standard error stream to a file by using &>. This is useful when you don’t want to send any output to the screen and instead save everything in a logfile (perhaps for later analysis):
+
+`$ ls -l / &> stdout_and_stderr.txt`
+
+To append both the standard output and standard error streams to a file, use the ampersand followed by the double chevron (&>>). What if we want to send the standard output stream to one file and the standard error stream to another? This is also possible using the streams’ file descriptor numbers:
+
+`$ ls -l / 1> stdout.txt 2> stderr.txt`
+
+```
+$ lzl 2> error.txt
+$ cat error.txt
+bash: lzl: command not found
+```
+
+Notice that you don’t see the error onscreen because bash sends the error to the file instead.
+
+What if we want to redirect multiple lines to a command? Here document redirection (<<) can help with this.
+
+```
+$ cat << EOF
+ Black Hat Bash
+ by No Starch Press
+EOF
+Black Hat Bash
+by No Starch Press
+```
+
+In this example, we pass multiple lines as input to a command. The EOF in this example acts as a delimiter, marking the start and end points of the input. Here document redirection treats the input as if it were a separate file, preserving line breaks and whitespace. The pipe operator (|) redirects the output of one command and uses it as the input of another. For example, we could run the ls command on the root directory and then use another command to extract data from it, as shown in:
+
+```
+$ ls -l / | grep "bin"
+lrwxrwxrwx 1 root root 7 Mar 10 08:43 bin -> usr/bin
+lrwxrwxrwx 1 root root 8 Mar 10 08:43 sbin -> usr/sbin
+```
+
+We use ls to print the content of the root directory into the standard output stream, then use a pipe to send it as input to the grep command, which filters out any lines containing the word bin.
