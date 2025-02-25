@@ -16,9 +16,8 @@
 ##### Listing 1-1: Listing bash’s environment variables:
 
 - `echo ${SHELL}` :
-
+  
   > /bin/bash
-  >
 
 Here are some of the default environment variables available:
 
@@ -57,7 +56,7 @@ Here are some of the default environment variables available:
 
 > In this section, you’ll learn the building blocks of a bash script. You’ll use
 > comments to document what a script does, tell Linux to use a specific interpreter to execute the script, and style your scripts for better readability.
->
+> 
 > Bash doesn’t have an official style guide, but we recommend adhering
 > to Google’s Shell Style Guide (https://google.github.io/styleguide/shellguide.html),
 > which outlines best practices to follow when developing bash code. If you
@@ -309,9 +308,8 @@ You’ll find arrays particularly useful when you need to iterate over values an
 
 Streams are files that act as communication channels between a program and its environment. When you interact with a program (whether a built-in Linux utility such as ls or mkdir or one that you wrote yourself), you’re interacting with one or more streams. Bash has three standard data streams, as shown in:
 
-
 | Stream name              | Description                         | File descriptor number |
-| ------------------------ | ----------------------------------- | ---------------------- |
+| -------------------------- | ------------------------------------- | ------------------------ |
 | Standard input (stdin)   | Data coming into a program as input | 0                      |
 | Standard output (stdout) | Data coming out of a program        | 1                      |
 | Standard error (stderr)  | Errors coming out of a program      | 2                      |
@@ -320,9 +318,8 @@ Streams are files that act as communication channels between a program and its e
 
 Control operators in bash are tokens that perform a control function:
 
-
 | Operator | Description                                                                                                                                                        |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | &        | Sends a command to the backgroundd                                                                                                                                 |
 | &&       | Used as a logical AND. The second command in the expression will be evaluated only if the first command evaluates to true.d                                        |
 | (and)    | Used for command grouping.                                                                                                                                         |
@@ -366,9 +363,8 @@ In this example, the echo command will be executed only if the first command fai
 
 #### Redirection Operators
 
-
 | Operator | Description                                                                     |
-| -------- | ------------------------------------------------------------------------------- |
+| ---------- | --------------------------------------------------------------------------------- |
 | >        | Redirects stdout to a file                                                      |
 | >>       | Redirects stdout to a file by appending it to the existing content              |
 | &> or >& | Redirects stdout and stderr to a file                                           |
@@ -476,9 +472,8 @@ The total number of arguments is: 2
 
 Special Variables Related to Positional Arguments:
 
-
 | Variable          | Description                                                          |
-| ----------------- | -------------------------------------------------------------------- |
+| ------------------- | ---------------------------------------------------------------------- |
 | $0                | The name of the script file                                          |
 | \$1, \$2, \$3 ... | Positional arguments                                                 |
 | $#                | The number of passed positional arguments                            |
@@ -510,3 +505,58 @@ for args in "$@"; do
  echo "${args}"
 done
 ```
+
+#### Input Prompting
+
+Some bash scripts don’t take any arguments during execution. However,
+they may need to ask the user for information in an interactive way and have the response feed into their runtime. In these cases, we can use the read command. You often see applications use input prompting when attempting to install software, asking the user to enter yes to proceed or no to cancel the operation.
+
+```apache
+#!/bin/bash
+# Takes input from the user and assigns it to variables
+echo "What is your first name?"
+read -r firstname
+echo "What is your last name?"
+read -r lastname
+echo "Your first name is ${firstname} and your last name is ${lastname}"
+```
+
+Save and run this script as input_prompting.sh:
+
+```
+$ chmod u+x input_prompting.sh
+$ ./input_prompting.sh
+What is your first name?
+John
+What is your last name?
+Doe
+Your first name is John and your last name is Doe
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
