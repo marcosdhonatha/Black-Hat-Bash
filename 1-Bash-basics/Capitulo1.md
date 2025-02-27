@@ -16,8 +16,9 @@
 ##### Listing 1-1: Listing bash’s environment variables:
 
 - `echo ${SHELL}` :
-  
+
   > /bin/bash
+  >
 
 Here are some of the default environment variables available:
 
@@ -56,7 +57,7 @@ Here are some of the default environment variables available:
 
 > In this section, you’ll learn the building blocks of a bash script. You’ll use
 > comments to document what a script does, tell Linux to use a specific interpreter to execute the script, and style your scripts for better readability.
-> 
+>
 > Bash doesn’t have an official style guide, but we recommend adhering
 > to Google’s Shell Style Guide (https://google.github.io/styleguide/shellguide.html),
 > which outlines best practices to follow when developing bash code. If you
@@ -308,6 +309,7 @@ You’ll find arrays particularly useful when you need to iterate over values an
 
 Streams are files that act as communication channels between a program and its environment. When you interact with a program (whether a built-in Linux utility such as ls or mkdir or one that you wrote yourself), you’re interacting with one or more streams. Bash has three standard data streams, as shown in:
 
+
 | Stream name              | Description                         | File descriptor number |
 | -------------------------- | ------------------------------------- | ------------------------ |
 | Standard input (stdin)   | Data coming into a program as input | 0                      |
@@ -317,6 +319,7 @@ Streams are files that act as communication channels between a program and its e
 #### Control Operators
 
 Control operators in bash are tokens that perform a control function:
+
 
 | Operator | Description                                                                                                                                                        |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -362,6 +365,7 @@ As a result, each command is executed one after the other, as soon as the previo
 In this example, the echo command will be executed only if the first command fails.
 
 #### Redirection Operators
+
 
 | Operator | Description                                                                     |
 | ---------- | --------------------------------------------------------------------------------- |
@@ -472,6 +476,7 @@ The total number of arguments is: 2
 
 Special Variables Related to Positional Arguments:
 
+
 | Variable          | Description                                                          |
 | ------------------- | ---------------------------------------------------------------------- |
 | $0                | The name of the script file                                          |
@@ -560,28 +565,7 @@ We receive two distinct exit codes, one for each command. The first command retu
 
 > Use /dev/null with caution. You may miss out on important errors if you choose to redirect output to it. When in doubt, redirect standard streams such as standard output and standard error to a dedicated logfile instead.
 
+### Summary
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+In this chapter, you ran simple Linux commands in the terminal and used man to learn about command options. You also learned how to pass arguments to scripts and execute a sequence of commands from within scripts.
+We covered the fundamentals of bash, such as how to write basic programs that use variables, arrays, redirects, exit codes, and arguments. You also learned how to prompt the user to enter arbitrary information and use it as part of a script’s flow.
