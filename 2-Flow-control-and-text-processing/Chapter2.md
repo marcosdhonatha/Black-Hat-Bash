@@ -45,10 +45,6 @@ Bash has multiple kinds of test operators. File test operators allow us to perfo
 | -lt      | Checks whether a number is less than another number                |
 | -le      | Checks whether a number is less than or equal to another number    |
 
-
-
-
-
 ## If Conditions
 
 In bash, we can use an if condition to execute code only when a certain condition is met.
@@ -61,7 +57,6 @@ else
 fi
 ```
 
-
 We start with the if keyword, followed by a test condition between
 double square brackets ([[ ]]). We then use the ; character to separate the
 if keyword from the then keyword, which allows us to introduce a block of
@@ -70,7 +65,6 @@ Next, we use the else keyword to introduce a fallback code block that
 runs if the condition is not met. Note that else is optional, and you may not
 always need it. Finally, we close the if condition with the fi keyword (which
 is if inversed).
-
 
 > n some operating systems, such as those often used in containers, the default shell
 > might not necessarily be bash. To account for these cases, you may want to use single
@@ -125,7 +119,6 @@ fi
 The script will compare the two variables, both of which have the value
 nostarch, and print They are equal! by using the echo command.
 
-
 ```
 #!/bin/bash
 VARIABLE_ONE="10"
@@ -140,3 +133,29 @@ fi
 We create two variables, VARIABLE_ONE and VARIABLE_TWO, and assign them
 values of 10 and 20, respectively. We then use the -gt operator to compare
 the two values and print the result based on an integer comparison.
+
+### Linking Conditions
+
+So far, we’ve used if to check whether a single condition is met. But as with most programming languages, we can also use the OR (||) and AND (&&) operators to check for multiple conditions at once.
+For example, what if we want to check that a file exists and that its size is greater than zero?
+
+```apache
+#!/bin/bash
+echo "Hello World!" > file.txt
+if [[ -f "file.txt" ]] && [[ -s "file.txt" ]]; then
+echo "The file exists and its size is greater than zero."
+fi
+```
+
+To demonstrate an OR condition, Listing 2-7 checks whether a variable
+is either a file or a directory:
+
+```apache
+#!/bin/bash
+DIR_NAME="dir_test"
+mkdir "${DIR_NAME}"
+if [[ -f "${DIR_NAME}" ]] || [[ -d "${DIR_NAME}" ]]; then
+32 Chapter 2
+echo "${DIR_NAME} is either a file or a directory."
+fi
+```
