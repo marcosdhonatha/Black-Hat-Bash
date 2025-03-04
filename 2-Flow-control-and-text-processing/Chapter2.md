@@ -159,3 +159,34 @@ if [[ -f "${DIR_NAME}" ]] || [[ -d "${DIR_NAME}" ]]; then
 echo "${DIR_NAME} is either a file or a directory."
 fi
 ```
+
+
+### Testing Command Success
+
+We can even test the exit code of commands to determine whether they were successful:
+
+```apache
+if command; then
+# command was successful.
+fi
+if ! command; then
+# command was unsuccessful.
+fi
+```
+
+You’ll often find yourself using this technique in bash, as commands aren’t guaranteed to succeed. Failures could happen for reasons such as these:
+
+• A lack of the necessary permissions when creating resources
+• An attempt to execute a command that is not available on the operating system
+• The disk being full when downloading a file
+• The network being down while executing network utilities
+
+
+To see how this technique works, execute the following in your terminal:
+
+```apache
+if touch test123; then
+echo "OK: file created"
+fi
+OK: file created
+```
