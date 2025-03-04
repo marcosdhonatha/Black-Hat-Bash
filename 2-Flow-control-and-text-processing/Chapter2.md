@@ -213,3 +213,20 @@ else
  echo "${USER_INPUT} is not a file or a directory."
 fi
 ```
+
+
+## Functions
+
+
+Functions help us reuse blocks of code so we can avoid repeating them. They allow us to run multiple commands and other bash code simultaneously by simply entering the function’s name. To define a new function, enter a name for it, followed by parentheses Then place the code you would like the function to run within curly brackets:
+
+```apache
+#!/bin/bash
+say_name(){
+echo "Black Hat Bash"
+}
+```
+
+Here, we define a function called say_name() that executes a single echo command. To call a function, simply enter its name:
+
+`say_name`
