@@ -190,3 +190,26 @@ echo "OK: file created"
 fi
 OK: file created
 ```
+
+### Checking Subsequent Conditions
+
+If the first if condition fails, you can check for other conditions by using the elif keyword (short for else if ). To show how this works, let’s write a program that checks the arguments passed to it on the command line.
+
+
+**if_elif.sh:**
+
+```apache
+#!/bin/bash
+USER_INPUT="${1}"
+if [[ -z "${USER_INPUT}" ]]; then
+echo "You must provide an argument!"
+exit 1
+fi
+if [[ -f "${USER_INPUT}" ]]; then
+echo "${USER_INPUT} is a file."
+elif [[ -d "${USER_INPUT}" ]]; then
+echo "${USER_INPUT} is a directory."
+else
+ echo "${USER_INPUT} is not a file or a directory."
+fi
+```
