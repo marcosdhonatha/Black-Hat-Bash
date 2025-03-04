@@ -13,7 +13,7 @@ Bash has multiple kinds of test operators. File test operators allow us to perfo
 
 
 | Operator | Description                                       |
-| -------- | ------------------------------------------------- |
+| ---------- | --------------------------------------------------- |
 | -d       | Checks whether the file is a directory            |
 | -r       | Checks whether the file is readable               |
 | -x       | Checks whether the file is executable             |
@@ -25,7 +25,7 @@ Bash has multiple kinds of test operators. File test operators allow us to perfo
 
 
 | Operator | Description                                                                 |
-| -------- | --------------------------------------------------------------------------- |
+| ---------- | ----------------------------------------------------------------------------- |
 | =        | Checks whether a string is equal to another string                          |
 | ==       | Synonym of = when used within [[ ]] constructs                              |
 | <        | Checks whether a string comes before another string (in alphabetical order) |
@@ -37,10 +37,106 @@ Bash has multiple kinds of test operators. File test operators allow us to perfo
 
 
 | Operator | Description                                                        |
-| -------- | ------------------------------------------------------------------ |
+| ---------- | -------------------------------------------------------------------- |
 | -eq      | Checks whether a number is equal to another number                 |
 | -ne      | Checks whether a number is not equal to another number             |
 | -ge      | Checks whether a number is greater than or equal to another number |
 | -gt      | Checks whether a number is greater than another number             |
 | -lt      | Checks whether a number is less than another number                |
 | -le      | Checks whether a number is less than or equal to another number    |
+
+
+
+
+
+## If Conditions
+
+In bash, we can use an if condition to execute code only when a certain condition is met.
+
+```
+if [[ condition ]]; then
+# Do something if the condition is met.
+else
+# Do something if the condition is not met.
+fi
+```
+
+
+We start with the if keyword, followed by a test condition between
+double square brackets ([[ ]]). We then use the ; character to separate the
+if keyword from the then keyword, which allows us to introduce a block of
+code that runs only if the condition is met.
+Next, we use the else keyword to introduce a fallback code block that
+runs if the condition is not met. Note that else is optional, and you may not
+always need it. Finally, we close the if condition with the fi keyword (which
+is if inversed).
+
+
+> n some operating systems, such as those often used in containers, the default shell
+> might not necessarily be bash. To account for these cases, you may want to use single
+> square brackets ([...]) rather than double to enclose your condition. This use of single brackets meets the Portable Operating System Interface standard and should work
+> on almost any Unix derivative, including Linux.
+
+```
+#!/bin/bash
+FILENAME="flow_control_with_if.txt"
+if [[ -f "${FILENAME}" ]]; then
+30 Chapter 2
+echo "${FILENAME} already exists."
+exit 1
+else
+touch "${FILENAME}"
+fi
+```
+
+We first create a variable named FILENAME containing the name of the
+file we need. This saves us from having to repeat the filename in the code.
+We then introduce the if statement, which includes a condition that uses
+the -f file test operator to test for the existence of the file. If this condition
+is true, we use echo to print to the screen a message explaining that the file
+already exists and then use the status code 1 (failure) to exit the program.
+In the else block, which will execute only if the file does not exist, we create
+the file by using the touch command.
+
+```
+#!/bin/bash
+FILENAME="flow_control_with_if.txt"
+if [[ ! -f "${FILENAME}" ]]; then
+touch "${FILENAME}"
+fi
+```
+
+Let’s explore if conditions that use some of the other kinds of test
+operators we’ve covered. Listing 2-4 shows a string comparison test. It tests
+whether two variables are equal by performing string comparison with the
+equal-to operator (==).
+
+```
+#!/bin/bash
+VARIABLE_ONE="nostarch"
+VARIABLE_TWO="nostarch"
+if [[ "${VARIABLE_ONE}" == "${VARIABLE_TWO}" ]]; then
+echo "They are equal!"
+else
+echo "They are not equal!"
+fi
+```
+
+The script will compare the two variables, both of which have the value
+nostarch, and print They are equal! by using the echo command.
+
+
+```
+#!/bin/bash
+VARIABLE_ONE="10"
+VARIABLE_TWO="20"
+if [[ "${VARIABLE_ONE}" -gt "${VARIABLE_TWO}" ]]; then
+echo "${VARIABLE_ONE} is greater than ${VARIABLE_TWO}."
+else
+echo "${VARIABLE_ONE} is less than ${VARIABLE_TWO}."
+fi
+```
+
+We create two variables, VARIABLE_ONE and VARIABLE_TWO, and assign them
+values of 10 and 20, respectively. We then use the -gt operator to compare
+the two values and print the result based on an integer comparison.
