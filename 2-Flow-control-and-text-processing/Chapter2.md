@@ -251,3 +251,15 @@ fi
 
 
 Bash scripts that perform privileged actions often check whether the user is root before attempting to install software, create users, delete groups, and so on. Attempting to perform privileged actions on Linux without the necessary privileges will result in errors, so this check helps handle these cases.
+
+### Accepting Arguments
+
+In Chapter 1, we covered the passing of arguments to commands on the command line. Functions can also take arguments by using the same syntax. For example, the function in Listing 2-12 prints the first three arguments it receives.
+
+```apache
+#!/bin/bash
+print_args(){
+echo "first: ${1}, second: ${2}, third: ${3}"
+}
+print_args No Starch Press
+```
