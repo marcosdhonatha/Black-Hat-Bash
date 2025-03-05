@@ -391,7 +391,6 @@ done
 
 We can even run a for loop on the output of commands such as ls. In Listing 2-21, we print the names of all files in the current working directory.
 
-
 ```apache
 #!/bin/bash
 for file in $(ls .); do
@@ -401,3 +400,36 @@ done
 
 We use a for loop to iterate over the output of the ls . command, which lists the files in the current directory. Each file will be assigned to the file variable as part of the for loop, so we can then use echo to print its name.
 This technique would be useful, for example, if we wanted to perform an upload of all files in the directory or even rename them in bulk.
+
+### break and continue
+
+Loops can run forever or until a condition is met. But we can also exit a loop at any point by using the break keyword. This keyword provides an alternative to the exit command, which would cause the entire script, not just the loop, to exit. Using break, we can leave the loop and advance to the
+next code block:
+
+```apache
+#!/bin/bash
+while true; do
+echo "in the loop"
+break
+done
+echo "This code block will be reached."
+```
+
+In this case, the last echo command will be executed.
+
+`$ touch example_file1 example_file2 example_file3`
+
+Next, our for loop will write content to each file, excluding the first one, example_file1, which the loop will leave empty.
+
+```apache
+#!/bin/bash
+for file in example_file*; do
+if [[ "${file}" == "example_file1" ]]; then
+echo "Skipping the first file"
+continue
+fi
+echo "${RANDOM}" > "${file}"
+done
+```
+
+If you examine the files, you should see that the first file is empty, while the other two contain a random number as a result of the script echoing the value of the ${RANDOM} environment variable into them.
