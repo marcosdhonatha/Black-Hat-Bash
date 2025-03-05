@@ -230,7 +230,7 @@ Here, we define a function called say_name() that executes a single echo command
 
 Like commands and their exit statuses, functions can return values by using the return keyword. If there is no return statement, the function will return the exit code of the last command it ran. For example, the function in Listing 2-11 returns a different value based on whether the current user is root.
 
-**check_root_function.sh**: 
+**check_root_function.sh**:
 
 ```apache
 #!/bin/bash
@@ -249,7 +249,6 @@ echo "User is not root!"
 fi
 ```
 
-
 Bash scripts that perform privileged actions often check whether the user is root before attempting to install software, create users, delete groups, and so on. Attempting to perform privileged actions on Linux without the necessary privileges will result in errors, so this check helps handle these cases.
 
 ### Accepting Arguments
@@ -263,3 +262,62 @@ echo "first: ${1}, second: ${2}, third: ${3}"
 }
 print_args No Starch Press
 ```
+
+## Loops and Loop Controls
+
+Like many programming languages, bash lets you repeat chunks of code by using loops. Loops can be particularly useful in your penetration testing adventures because they can help you accomplish tasks such as the following:
+
+• Continuously checking whether an IP address is online after a reboot until the IP address is responsive
+• Iterating through a list of hostnames (for example, to run a specific exploit against each of them or determine whether a firewall is protecting them)
+• Testing for a certain condition and then running a loop when it is met (for example, checking whether a host is online and, if so, performing a brute-force attack against it)
+
+The following sections introduce you to the three kinds of loops in bash (while, until, and for) as well as the break and continue statements for working with loops.
+
+### while
+
+In bash, while loops allow you to run a code block until a test returns a successful exit status code. You might use them in penetration testing to continuously perform a port scan on a network and pick up any new hosts that join the network, for example.
+
+```apache
+while some_condition; do
+# Run commands while the condition is true.
+done
+```
+
+You can use while loops to run a chunk of code infinitely by using true as the condition; because true always returns a successful exit code, the code will always run. Let’s use a while loop to repeatedly print a command to the screen. Save Listing 2-14 to a file named basic_while.sh and run it.
+
+```apache
+#!/bin/bash
+while true; do
+echo "Looping..."
+sleep 2
+done
+```
+
+Next, let’s write a more sophisticated while loop that runs until it finds a specific file on the filesystem (Listing 2-15). Use ctrl-C to stop the code from executing at any point.
+
+**while_loop.sh:**
+
+```apache
+#!/bin/bash
+SIGNAL_TO_STOP_FILE="stoploop"
+while [[ ! -f "${SIGNAL_TO_STOP_FILE}" ]]; do
+echo "The file ${SIGNAL_TO_STOP_FILE} does not yet exist..."
+echo "Checking again in 2 seconds..."
+sleep 2
+done
+echo "File was found! Exiting..."
+```
+
+We define a variable representing the name of the file for which the while loop checks, using a file test operator. The loop won’t exit until the condition is satisfied. Once the file is available, the loop will stop, and the script will continue to the echo command. Save this file as while_loop.sh
+and run it.
+
+While the script is running, open a second terminal in the same directory as the script and create the stoploop file:
+
+`$ touch stoploop`
+
+Once you’ve done so, you should see the script break out of the loop and print the following:
+
+`File was found! Exiting...`
+
+We can use while loops to monitor for filesystem events, such as file creations or deletions, or when a process starts. This may come in handy if an application is suffering from a vulnerability we can only temporarily abuse.
+For example, consider an application that runs daily at a particular hour and checks whether the file /tmp/update.sh exists; if it does, the application executes it as the root user. Using a while loop, we can monitor when that application has started and then create the file just in time so our commands are executed by that application.
