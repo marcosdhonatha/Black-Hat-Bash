@@ -438,7 +438,6 @@ If you examine the files, you should see that the first file is empty, while the
 
 In bash, case statements allow you to test multiple conditions in a cleaner way by using more readable syntax. Often, they help you avoid many if conditions, which can become harder to read as they grow in size.
 
-
 ```apache
 case EXPRESSION in
 PATTERN1)
@@ -473,3 +472,39 @@ esac
 ```
 
 A case statement can be used for a variety of use cases. For example, it can be used to run functions based on input the user has entered. Using case statements is a great way to handle the evaluation of multiple conditions without sacrificing the readability of the code.
+
+## Text Processing and Parsing
+
+To test the commands in this section on your own, download the sample logfile from https://github.com/dolevf/Black-Hat-Bash/blob/master/ch02/log.txt.
+This file is space-separated, and each segment represents a specific data type, such as the client’s source IP address, timestamp, HyperText Transfer Protocol (HTTP) method, HTTP path, HTTP User Agent field, HTTP status code, and more.
+
+### Filtering with grep
+
+The grep command is one of the most popular Linux commands out there today. We use grep to filter out information of interest from streams.
+
+`$ grep "35.237.4.214" log.txt`
+
+This grep command will read the file and extract any lines containing the IP address 35.237.4.214 from it.
+We can even use grep for multiple patterns simultaneously.
+
+`$ grep "35.237.4.214\|13.66.139.0" log.txt`
+
+Alternatively, we could use multiple grep patterns with the -e argument to accomplish the same thing:
+
+`$ grep -e "35.237.4.214" -e "13.66.139.0" log.txt`
+
+As you learned in Chapter 1, we can use the pipe (|) command to provide one command’s output as the input to another. In the following example, we run the ps command and use grep to filter out a specific line. The ps command lists the processes on the system:
+
+`$ ps | grep TTY`
+
+By default, grep is case sensitive. We can make our search case insensitive by using the -i flag:
+
+`$ ps | grep -i tty`
+
+We can also use grep with the -v argument to exclude lines containing a certain pattern:
+
+`$ grep -v "35.237.4.214" log.txt`
+
+To print only the matched pattern, and not the entire line at which the matched pattern was found, use -o:
+
+`$ grep -o "35.237.4.214" log.txt`
