@@ -321,3 +321,42 @@ Once you’ve done so, you should see the script break out of the loop and print
 
 We can use while loops to monitor for filesystem events, such as file creations or deletions, or when a process starts. This may come in handy if an application is suffering from a vulnerability we can only temporarily abuse.
 For example, consider an application that runs daily at a particular hour and checks whether the file /tmp/update.sh exists; if it does, the application executes it as the root user. Using a while loop, we can monitor when that application has started and then create the file just in time so our commands are executed by that application.
+
+### until
+
+Whereas while runs so long as the condition succeeds, until runs so long as it fails.
+
+```apache
+until some_condition; do
+# Run some commands until the condition is no longer false.
+done
+```
+
+**until_loop.sh:**
+
+```apache
+#!/bin/bash
+FILE="output.txt"
+touch "${FILE}"
+until [[ -s "${FILE}" ]]; do
+echo "${FILE} is empty..."
+echo "Checking again in 2 seconds..."
+sleep 2
+done
+echo "${FILE} appears to have some content in it!"
+```
+
+At this point, the script has created the file output.txt, but it’s an empty file. We can check this by using the du (disk usage) command:
+
+```apache
+$ du -sb output.txt
+0 output.txt
+```
+
+Open another terminal and navigate to the location at which your script is saved, then append some content to the file so its size is no longer zero:
+
+`echo "until_loop_will_now_stop!" > output.txt`
+
+The script should exit the loop, and you should see it print the following:
+
+`output.txt appears to have some content in it!`
