@@ -508,6 +508,7 @@ We can also use grep with the -v argument to exclude lines containing a certain 
 To print only the matched pattern, and not the entire line at which the matched pattern was found, use -o:
 
 `$ grep -o "35.237.4.214" log.txt`
+<<<<<<< HEAD
 
 ### Filtering with awk
 
@@ -585,3 +586,5 @@ Finally, you can print (p) specific line ranges, such as lines 2 through 15:
 When you pass sed the -i argument, it will make the changes to the file itself rather than create a modified copy:
 
 `sed -i '1d' log.txt`
+=======
+>>>>>>> parent of 22d77b1 (Add Filtering with awk)
