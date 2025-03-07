@@ -549,3 +549,39 @@ might want to first find the lines in a file containing the IP address
 
 The awk command is a superpowerful tool, and we encourage you to dig
 deeper into its capabilities by running man awk for more information
+
+### Editing Streams with sed
+
+The sed (stream editor) command takes actions on text. For example, it can replace the text in a file, modify the text in a command’s output, and even delete selected lines from files.
+
+Let’s use sed to replace any mentions of the word Mozilla with the word Godzilla in the log.txt file. We use its `s` (substitution) command and `g` (global) command to make the substitution across the whole file, rather than to just the first occurrence:
+
+`sed 's/Mozilla/Godzilla/g' log.txt`
+
+This will output the modified version of the file but won’t change the original version. You can redirect the output to a new file to save your changes:
+
+`sed 's/Mozilla/Godzilla/g' log.txt > newlog.txt`
+
+We could also use sed to remove any whitespace from the file with the / // syntax, which will replace whitespace with nothing, removing it from the output altogether:
+
+`sed 's/ //g' log.txt`
+
+If you need to delete lines of a file, use the d command. In the following command, 1d deletes (d) the first line (1):
+
+`sed '1d' log.txt`
+
+To delete the last line of a file, use the dollar sign ($), which represents the last line, along with d:
+
+`sed '$d' log.txt`
+
+You can also delete multiple lines, such as lines 5 and 7:
+
+`sed '5,7d' log.txt`
+
+Finally, you can print (p) specific line ranges, such as lines 2 through 15:
+
+`sed -n '2,15 p' log.txt`
+
+When you pass sed the -i argument, it will make the changes to the file itself rather than create a modified copy:
+
+`sed -i '1d' log.txt`
