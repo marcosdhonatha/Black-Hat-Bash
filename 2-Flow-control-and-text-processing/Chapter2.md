@@ -13,7 +13,7 @@ Bash has multiple kinds of test operators. File test operators allow us to perfo
 
 
 | Operator | Description                                       |
-| ---------- | --------------------------------------------------- |
+| -------- | ------------------------------------------------- |
 | -d       | Checks whether the file is a directory            |
 | -r       | Checks whether the file is readable               |
 | -x       | Checks whether the file is executable             |
@@ -25,7 +25,7 @@ Bash has multiple kinds of test operators. File test operators allow us to perfo
 
 
 | Operator | Description                                                                 |
-| ---------- | ----------------------------------------------------------------------------- |
+| -------- | --------------------------------------------------------------------------- |
 | =        | Checks whether a string is equal to another string                          |
 | ==       | Synonym of = when used within [[ ]] constructs                              |
 | <        | Checks whether a string comes before another string (in alphabetical order) |
@@ -37,7 +37,7 @@ Bash has multiple kinds of test operators. File test operators allow us to perfo
 
 
 | Operator | Description                                                        |
-| ---------- | -------------------------------------------------------------------- |
+| -------- | ------------------------------------------------------------------ |
 | -eq      | Checks whether a number is equal to another number                 |
 | -ne      | Checks whether a number is not equal to another number             |
 | -ge      | Checks whether a number is greater than or equal to another number |
@@ -586,5 +586,11 @@ Finally, you can print (p) specific line ranges, such as lines 2 through 15:
 When you pass sed the -i argument, it will make the changes to the file itself rather than create a modified copy:
 
 `sed -i '1d' log.txt`
-=======
->>>>>>> parent of 22d77b1 (Add Filtering with awk)
+
+## Job Control
+
+As you become proficient in bash, you’ll start to build complex scripts that take an hour to complete or must run continuously. Not all scripts need to execute in the foreground, blocking execution of other commands. Instead, you may want to run certain scripts as background jobs, either because they take a while to complete or because their runtime output isn’t interesting
+and you care about only the end result.
+Commands that you run in a terminal occupy that terminal until the command is finished. These commands are considered foreground jobs. In Chapter 1, we used the ampersand character (&) to send a command to the background. This command then becomes a background job that allows us to unblock the execution of other commands.
+
+### Managing the Background and Foreground
