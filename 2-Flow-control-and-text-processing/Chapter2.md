@@ -630,3 +630,7 @@ What if we want to keep running a script in the background even after we’ve lo
 
 There are additional ways to run background scripts, such as by plugging into system and service managers like systemd. These managers provide additional features, such as monitoring that the process is running, restarting it if it isn’t, and capturing failures. We encourage you to read more
 about systemd at https://man7.org/linux/man-pages/man1/init.1.html if you have such use cases.
+
+## Bash Customizations for Penetration Testers
+
+As penetration testers, we often follow standard workflows for all ethical hacking engagements, whether they are consulting work, bug bounty hunting, or red teaming. We can optimize some of this work with a few bash tipsand tricks.
