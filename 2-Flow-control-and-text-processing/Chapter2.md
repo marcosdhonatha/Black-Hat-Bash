@@ -594,3 +594,22 @@ and you care about only the end result.
 Commands that you run in a terminal occupy that terminal until the command is finished. These commands are considered foreground jobs. In Chapter 1, we used the ampersand character (&) to send a command to the background. This command then becomes a background job that allows us to unblock the execution of other commands.
 
 ### Managing the Background and Foreground
+
+To practice working with background and foreground jobs, let’s run a command directly in the terminal and send it to the background:
+
+`sleep 100 &`
+
+Notice that we can continue working on the terminal while this sleep command runs for 100 seconds. We can verify that the spawned process is running by using the ps command:
+
+`ps -ef | grep sleep`
+
+Now that this job is in the background, we can use the jobs command to see what jobs are currently running:
+
+`jobs`
+
+The output shows that the sleep command is in Running state and that its job ID is 1.
+We can migrate the job from the background to the foreground by issuing the fg command and the job ID:
+
+`fg %1`
+
+At this point, the sleep command is occupying the terminal, since it's running in the foreground. You can press ctrl-Z to suspend the process, which will produce the following output in the jobs table:
