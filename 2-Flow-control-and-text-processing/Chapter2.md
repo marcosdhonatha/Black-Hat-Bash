@@ -613,3 +613,20 @@ We can migrate the job from the background to the foreground by issuing the fg c
 `fg %1`
 
 At this point, the sleep command is occupying the terminal, since it's running in the foreground. You can press ctrl-Z to suspend the process, which will produce the following output in the jobs table:
+
+To send this job to the background again in a running state, use the bg command with the job ID:
+
+`bg %1`
+
+### Keeping Jobs Running After Logout
+
+Whether you send a job to the background or are running a job in the foreground, the process won’t survive if you close the terminal or log out. If you close the terminal, the process will receive a SIGHUP signal and terminate.
+
+What if we want to keep running a script in the background even after we’ve logged out of the terminal window or closed it? To do so, we could start a script or command with the nohup (no hangup) command prepended:
+
+`nohup ./my_script.sh &`
+
+> The nohup command will create a file named nohup.out with standard output stream data. Make sure you delete this file if you don’t want it on the filesystem.
+
+There are additional ways to run background scripts, such as by plugging into system and service managers like systemd. These managers provide additional features, such as monitoring that the process is running, restarting it if it isn’t, and capturing failures. We encourage you to read more
+about systemd at https://man7.org/linux/man-pages/man1/init.1.html if you have such use cases.
