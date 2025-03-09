@@ -634,3 +634,20 @@ about systemd at https://man7.org/linux/man-pages/man1/init.1.html if you have s
 ## Bash Customizations for Penetration Testers
 
 As penetration testers, we often follow standard workflows for all ethical hacking engagements, whether they are consulting work, bug bounty hunting, or red teaming. We can optimize some of this work with a few bash tipsand tricks.
+
+### Placing Scripts in Searchable Paths
+
+Bash searches for programs within directories defined by the PATH environment variable. Commands such as ls are always available to you because system and user binaries are located in directories that are part of the PATH.
+To see your PATH, run this command:
+
+`echo $PATH`
+
+When you write a bash script, place it in a directory such as `/usr/local/`  bin, which, as you can see, is part of the PATH. If you don’t do this, you have a few other options available:
+
+
+* Call the script directly, using the full path.
+* Change the directory to the one in which your script lives and executeit from there.
+* Use aliases (shown in the next section).
+*  Add paths to the PATH environment variable.
+
+The benefit of placing the script in a searchable path is that you can simply call it by its name. You don’t have to provide the full path or have the terminal be in the same directory.
