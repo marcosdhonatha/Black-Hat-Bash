@@ -13,7 +13,7 @@ Bash has multiple kinds of test operators. File test operators allow us to perfo
 
 
 | Operator | Description                                       |
-| -------- | ------------------------------------------------- |
+| ---------- | --------------------------------------------------- |
 | -d       | Checks whether the file is a directory            |
 | -r       | Checks whether the file is readable               |
 | -x       | Checks whether the file is executable             |
@@ -25,7 +25,7 @@ Bash has multiple kinds of test operators. File test operators allow us to perfo
 
 
 | Operator | Description                                                                 |
-| -------- | --------------------------------------------------------------------------- |
+| ---------- | ----------------------------------------------------------------------------- |
 | =        | Checks whether a string is equal to another string                          |
 | ==       | Synonym of = when used within [[ ]] constructs                              |
 | <        | Checks whether a string comes before another string (in alphabetical order) |
@@ -37,7 +37,7 @@ Bash has multiple kinds of test operators. File test operators allow us to perfo
 
 
 | Operator | Description                                                        |
-| -------- | ------------------------------------------------------------------ |
+| ---------- | -------------------------------------------------------------------- |
 | -eq      | Checks whether a number is equal to another number                 |
 | -ne      | Checks whether a number is not equal to another number             |
 | -ge      | Checks whether a number is greater than or equal to another number |
@@ -644,10 +644,36 @@ To see your PATH, run this command:
 
 When you write a bash script, place it in a directory such as `/usr/local/`  bin, which, as you can see, is part of the PATH. If you don’t do this, you have a few other options available:
 
-
 * Call the script directly, using the full path.
 * Change the directory to the one in which your script lives and executeit from there.
 * Use aliases (shown in the next section).
-*  Add paths to the PATH environment variable.
+* Add paths to the PATH environment variable.
 
 The benefit of placing the script in a searchable path is that you can simply call it by its name. You don’t have to provide the full path or have the terminal be in the same directory.
+
+### Shortening Commands with Aliases
+
+When you find yourself frequently using a long Linux command, you can use an alias to map the command to a shorter custom name that will save you time when you need to run it.
+For example, imagine that you often use Nmap (discussed in Chapter 4) with special parameters to scan for all 65,535 ports on a given IP address:
+
+`nmap -vv -T4 -p- -sV --max-retries 5 localhost`
+
+This command is quite hard to remember. With aliases, we can make it more accessible on the command line or to our scripts. Here, we assign the command to the alias quicknmap:
+
+`alias quicknmap="nmap -vv -T4 -p- -sV --max-retries 5 localhost"`
+
+Now we can run the aliased command by using the name of the alias:
+
+```
+quicknmap
+Starting Nmap ( https://nmap .org ) at 02-21 22:32 EST
+--snip--
+PORT STATE SERVICE
+631/tcp open ipp
+```
+
+You can even assign an alias to your own scripts:
+
+`alias helloworld="bash ~/scripts/helloworld.sh"`
+
+liases aren’t permanent, but they can be. In the next section, you’ll learn how to use bash profiles to make permanent changes to your shell.
