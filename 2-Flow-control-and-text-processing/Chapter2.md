@@ -717,4 +717,22 @@ Note that you can also source a bash file by using the . (dot) command:
 
 This command provides an alternative to source.
 
-###
+### Capturing Terminal Session Activity
+
+Penetration testing often involves having dozens of terminals open simultaneously, all running many tools that can produce a lot of output. When we find something of interest, we may need some of that output as evidence for later. To avoid losing track of an important piece of information, we can use some clever bash.
+The script command allows us to capture terminal session activity. One approach is to load a small bash script that uses script to save every session to a file for later inspection. The script might look like Listing 2-27.
+
+```
+#!/bin/bash
+FILENAME=$(date +%m_%d_%Y_%H:%M:%S).log
+if [[ ! - d ~/sessions ]]; then
+mkdir ~/sessions
+fi
+# Starting a script session
+if [[ - z $SCRIPT ]]; then
+export SCRIPT="/home/kali/sessions/${FILENAME}"
+script - q - f "${SCRIPT}"
+fi
+```
+
+Having ~/.bashrc load this script, as shown earlier, will result in the creation of the ~/sessions directory, containing each terminal session capture in a separate file. The recording stops when you enter exit in the terminal or close the terminal window.
