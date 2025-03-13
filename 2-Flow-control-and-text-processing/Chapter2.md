@@ -680,10 +680,41 @@ Aliases aren’t permanent, but they can be. In the next section, you’ll learn
 
 ### Customizing the ~/.bashrc Profile
 
-We can use the ~/.bashrc file to load functions, variables, and just about any
+We can use the ~/.bashrc file to load functions, variables, and just about any 
 other custom bash code we desire into a new bash session. For example, we
 can create variables containing information we’ll frequently need to access,
 such as the IP address of a vulnerable host we’re testing.
 We could append the following to the end of the ~/.bashrc file, for
 instance. These lines define a few custom variables and save our aliased
 Nmap command:
+
+```
+VULN_HOST=1.0.0.22
+VULN_ROUTER=10.0.0.254
+alias quicknmap="nmap -vv -T4 -p- -sV --max-retries 5 localhost"
+```
+
+The next time you open a terminal, you’ll be able to access these values.
+Make these new values available immediately by using the source command
+to reimport the ~/.bashrc file:
+
+Now you can use these variables even after you close the terminal and
+start a new session.
+
+### Importing Custom Scripts
+
+Another way to introduce changes to your bash session is to create a dedi-
+cated script that contains pentesting-related customizations and then have
+the ~/.bashrc file import it by using the source command. To achieve this, cre-
+ate a ~/.pentest.sh file containing your new logic and then make a one-time
+modification to ~/.bashrc to import pentest.sh at the end of the file:
+
+`source ~/.pentest.sh`
+
+Note that you can also source a bash file by using the . (dot) command:
+
+`. ~/.pentest.sh`
+
+This command provides an alternative to source.
+
+###
