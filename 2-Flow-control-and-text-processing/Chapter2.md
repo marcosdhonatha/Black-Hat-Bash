@@ -676,4 +676,14 @@ You can even assign an alias to your own scripts:
 
 `alias helloworld="bash ~/scripts/helloworld.sh"`
 
-liases aren’t permanent, but they can be. In the next section, you’ll learn how to use bash profiles to make permanent changes to your shell.
+Aliases aren’t permanent, but they can be. In the next section, you’ll learn how to use bash profiles to make permanent changes to your shell.
+
+### Customizing the ~/.bashrc Profile
+
+We can use the ~/.bashrc file to load functions, variables, and just about any
+other custom bash code we desire into a new bash session. For example, we
+can create variables containing information we’ll frequently need to access,
+such as the IP address of a vulnerable host we’re testing.
+We could append the following to the end of the ~/.bashrc file, for
+instance. These lines define a few custom variables and save our aliased
+Nmap command:
