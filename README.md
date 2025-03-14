@@ -15,7 +15,7 @@ Abaixo está o meu progresso em cada capítulo, com a porcentagem de conclusão 
 | Capítulo | Nome do Capítulo                          | Progresso |
 |----------|-------------------------------------------|-----------|
 | 1        | Bash Basics                               | 100%      |
-| 2        | Flow Control and Text Processing          | 60%       |
+| 2        | Flow Control and Text Processing          | 100%      |
 | 3        | Setting Up a Hacking Lab                  | 0%        |
 | 4        | Reconnaissance                            | 0%        |
 | 5        | Vulnerability Scanning and Fuzzing        | 0%        |
