@@ -664,7 +664,7 @@ This command is quite hard to remember. With aliases, we can make it more access
 
 Now we can run the aliased command by using the name of the alias:
 
-```
+```bash
 quicknmap
 Starting Nmap ( https://nmap .org ) at 02-21 22:32 EST
 --snip--
@@ -722,7 +722,7 @@ This command provides an alternative to source.
 Penetration testing often involves having dozens of terminals open simultaneously, all running many tools that can produce a lot of output. When we find something of interest, we may need some of that output as evidence for later. To avoid losing track of an important piece of information, we can use some clever bash.
 The script command allows us to capture terminal session activity. One approach is to load a small bash script that uses script to save every session to a file for later inspection. The script might look like Listing 2-27.
 
-```
+```bash
 #!/bin/bash
 FILENAME=$(date +%m_%d_%Y_%H:%M:%S).log
 if [[ ! - d ~/sessions ]]; then
