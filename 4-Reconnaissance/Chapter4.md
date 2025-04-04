@@ -89,3 +89,63 @@ We can use sed to write content to the end of each line in a file. In Listing 4-
 `$ sed 's/$/.example.com/g' subdomains-1000.txt`
 
 The s at the beginning of the argument to sed stands for substitute, and g means that sed will replace all matches in the file, not just the first match. So, in simple terms, we substitute the end of each line in the file with .example.com. If you save this code to a script, the output should look the same as in the previous example
+
+## Host Discovery
+
+
+When testing a range of addresses, one of the first things you’ll likely want to do is find out information about them. Do they have any open ports? What services are behind those ports, and are they vulnerable to any security flaws? Answering these questions manually is possible, but this can be challenging if you need to do it for hundreds or thousands of hosts. Let’s use bash to automate network enumeration tasks.
+One way to identify live hosts is by attempting to send them network packets and wait for them to return responses. In this section, we’ll use bash and additional network utilities to perform host discovery.
+
+### ping
+
+At its most basic form, the ping command takes one argument: a target IP address or domain name. Run the following command to see its output:
+
+`$ ping 172.16.10.10`
+
+If you read the ping manual page (by running man ping ), you’ll notice that there is no way to run the command against multiple hosts at once. But using bash, we can do this quite easily.
+
+```
+#!/bin/bash
+FILE="${1}"
+while read -r host; do
+  if ping -c 1 -W 1 -w 1 "${host}" &> /dev/null; then
+    echo "${host} is up."
+  fi
+done < "${FILE}"
+```
+
+At 1, we run a while loop that reads from the file passed to the script on the command line. This file is assigned to the variable FILE . We read each line from the file and assign it to the host variable. We then run the ping command, using the -c argument with a value of 1 at 2, which tells ping to send a ping request only once and exit. By default on Linux, ping sends ping requests indefinitely until you stop it manually by sending a SIGHUP signal (ctrl-C).
+
+We also use the arguments -W 1 (to set a timeout in seconds) and -w 1 (to set a deadline in seconds) to limit the amount of time ping will wait to receive a response. This is important because we don’t want ping to get stuck on an unresponsive IP address; we want it to continue reading from the file until all 254 hosts are tested.
+Finally, we use the standard input stream to read the file and “feed” the while loop with its contents 3.
+
+
+Save this code to multi_host_ping.sh and run it while passing in the hosts file. You should see that the code picks up a few live hosts:
+
+### Nmap
+
+The Nmap port scanner has a special option called -sn that performs a ping sweep. This simple technique finds live hosts on a network by sending them a ping command and waiting for a positive response (called a ping response). Since many operating systems respond to ping by default, this technique has proved valuable. The ping sweep in Nmap will essentially make Nmap send Internet Control Message Protocol packets over the network to discover running hosts:
+
+`$ nmap -sn 172.16.10.0/24`
+
+```
+Nmap scan report for 172.16.10.1
+Host is up (0.00093s latency).
+Nmap scan report for 172.16.10.10
+Host is up (0.00020s latency).
+Nmap scan report for 172.16.10.11
+Host is up (0.00076s latency).
+--snip--
+```
+
+This output has a lot of text. With a bit of bash magic, we can get a cleaner output by using the grep and awk commands to extract only the IP addresses that were identified as being alive
+
+`$ nmap -sn 172.16.10.0/24 | grep "Nmap scan" | awk -F'report for ' '{print $2}'`
+
+```
+172.16.10.1
+172.16.10.10
+--snip--
+```
+
+Using Nmap’s built-in ping sweep scan may be more useful than manually wrapping the ping utility with bash, because you don’t have to worry about checking for conditions such as whether the command was successful. Moreover, in penetration tests, you may drop an Nmap binary on more than one type of operating system, and the same syntax will work consistently whether the ping utility exists or not.
